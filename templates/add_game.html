@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj Grę</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
+
 <body>
     <div class="app-container">
         <h2>Dodaj grę</h2>
@@ -15,7 +17,7 @@
                     <label>Gracz 1:</label>
                     <input type="text" name="player1" id="player1" required>
                 </div>
-                
+
                 <div class="checkbox-wrapper-47">
                     <input type="checkbox" name="winner" value="player1" id="winner-checkbox-player1" />
                     <label for="winner-checkbox-player1">Zwycięzca</label>
@@ -39,7 +41,32 @@
         <br>
         <a href="/">
             <button class="glow-on-hover">Powrót</button>
-        </a>        
+        </a>
     </div>
+
+    <!-- Dodajemy JavaScript -->
+    <script>
+        // Funkcja do wyłączenia drugiego checkboxa, jeśli jeden z nich jest zaznaczony
+        const player1Checkbox = document.getElementById("winner-checkbox-player1");
+        const player2Checkbox = document.getElementById("winner-checkbox-player2");
+
+        // Funkcja, która sprawdza, czy jeden z checkboxów jest zaznaczony
+        player1Checkbox.addEventListener("change", function () {
+            if (player1Checkbox.checked) {
+                player2Checkbox.disabled = true;
+            } else {
+                player2Checkbox.disabled = false;
+            }
+        });
+
+        player2Checkbox.addEventListener("change", function () {
+            if (player2Checkbox.checked) {
+                player1Checkbox.disabled = true;
+            } else {
+                player1Checkbox.disabled = false;
+            }
+        });
+    </script>
 </body>
+
 </html>
