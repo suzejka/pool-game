@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodaj Grę</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <h2>Dodaj grę</h2>
+        <form method="POST" class="game-form">
+            <div class="player-container">
+                <div>
+                    <label>Gracz 1:</label>
+                    <input type="text" name="player1" id="player1" required>
+                </div>
+                
+                <div class="checkbox-wrapper-47">
+                    <input type="checkbox" name="winner" value="player1" id="winner-checkbox-player1" />
+                    <label for="winner-checkbox-player1">Zwycięzca</label>
+                </div>
+            </div>
+
+            <div class="player-container">
+                <div>
+                    <label>Gracz 2:</label>
+                    <input type="text" name="player2" id="player2" required>
+                </div>
+
+                <div class="checkbox-wrapper-47">
+                    <input type="checkbox" name="winner" value="player2" id="winner-checkbox-player2" />
+                    <label for="winner-checkbox-player2">Zwycięzca</label>
+                </div>
+            </div>
+
+            <button class="glow-on-hover" type="submit">Dodaj grę</button>
+        </form>
+        <br>
+        <a href="/">
+            <button class="glow-on-hover">Powrót</button>
+        </a>        
+    </div>
+</body>
+</html>

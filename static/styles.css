@@ -1,0 +1,360 @@
+/* Ogólne style dla aplikacji */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f9fafc;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Ukrywanie widoków */
+.hidden {
+    display: none;
+}
+
+/* Pasek górny */
+.top-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.top-bar .icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.top-bar .icon:hover {
+    color: #0078d4;
+}
+
+/* Profil użytkownika */
+.profile {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    background-color: #ffd166;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    background-image: url('avatar.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.nickname {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+
+/* Statystyki */
+.stats {
+    display: flex;
+    justify-content: space-around;
+    width: 60%;
+    margin: 20px 0;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.stat-icon {
+    width: 80px;  /* Możesz zmienić rozmiar ikony */
+    height: 80px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.icon {
+    width: 24px;  /* Możesz zmienić rozmiar ikony */
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+
+.stat .icon {
+    font-size: 32px;
+}
+
+.stat-value {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Przycisk dodawania gry */
+.button-container {
+    margin-top: 40px;
+}
+
+.add-game-btn {
+    background-color: #ff7f7f;
+    color: white;
+    font-size: 16px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-game-btn:hover {
+    background-color: #e06666;
+}
+
+/* Widok Dodawania Gry */
+#add-game-view {
+    text-align: center;
+}
+
+#add-game-view h2 {
+    margin: 20px 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.game-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.game-form label {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.game-form input[type="text"] {
+    width: 80%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.winner-selection {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.winner-selection label {
+    font-size: 14px;
+    color: #333;
+}
+
+.winner-selection input[type="radio"] {
+    margin-right: 5px;
+}
+
+.save-game-btn {
+    background-color: #ff7f7f;
+    color: white;
+    font-size: 16px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.save-game-btn:hover {
+    background-color: #e06666;
+}
+
+.back-icon {
+    background-color: #fad7d7;
+    color: black;
+    font-size: 16px;
+    padding: 10px 25px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-icon:hover {
+    background-color: #e06666;
+}
+
+.beer-btn {
+    background-color: #ff7f7f;
+    color: white;
+    font-size: 20px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+.beer-btn:hover {
+    background-color: #e06666;
+}
+
+.crown {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+    color: gold;
+}
+
+.crown:hover {
+    color: darkgoldenrod;
+}
+
+.player-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.player-container label {
+    margin-right: 10px;
+}
+
+.crown {
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+/* CSS */
+.glow-on-hover {
+    width: 220px;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+/* Checkbox winner */
+
+  .checkbox-wrapper-47 input[type="checkbox"] {
+    display: none;
+    visibility: hidden;
+  }
+
+  .checkbox-wrapper-47 label {
+    position: relative;
+    padding-left: 2em;
+    padding-right: 1em;
+    line-height: 2;
+    cursor: pointer;
+    display: inline-flex;
+  }
+
+  .checkbox-wrapper-47 label:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid #9098A9;
+    border-radius: 6px;
+    z-index: -1;
+  }
+
+  .checkbox-wrapper-47 input[type=checkbox]:checked + label {
+    padding-left: 1em;
+    color: #0f5229;
+  }
+  .checkbox-wrapper-47 input[type=checkbox]:checked + label:before {
+    top: 0;
+    width: 100%;
+    height: 2em;
+    background: #b7e6c9;
+    border-color: #2cbc63;
+  }
+
+  .checkbox-wrapper-47 label,
+  .checkbox-wrapper-47 label::before {
+    transition: 0.25s all ease;
+  }

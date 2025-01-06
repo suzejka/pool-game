@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikacja Bilardowa</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="top-bar">
+            <img src="/static/icons/logout.png" alt="Puchar" class="icon">
+            <img src="/static/icons/dots-menu.png" alt="Puchar" class="icon">
+        </div>
+        <div class="profile">
+            {% if avatar %}
+                <div class="avatar" style="background-image: url('{{ avatar }}');"></div>
+            {% else %}
+                <div class="avatar"></div>
+            {% endif %}
+            <div class="nickname">Witaj {{ user if user else 'Gość' }}!</div>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <img src="/static/icons/success-color.png" alt="Puchar" class="stat-icon">
+                <span class="stat-value">{{ games }}</span>
+                <div>
+                    <a href="/add_game"><button class="glow-on-hover">Dodaj grę</button></a>
+                </div>
+            </div>
+            <div class="stat">
+                <img src="/static/icons/beer-color.png" alt="Piwo" class="stat-icon">
+                <span class="stat-value">{{ beers }}</span>
+                <form action="/add_beer" method="post">
+                    <button type="submit" class="glow-on-hover">Dodaj piwo</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

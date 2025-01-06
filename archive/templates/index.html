@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billiard Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #1c1c1c;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #0fd9f7;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        button {
+            background-color: #0fd9f7;
+            color: #121212;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #user-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login</h1>
+        <form id="login-form" action="/login" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="text" name="nickname" placeholder="Nickname" required>
+            </div>
+            <div class="form-group">
+                <label for="profile_image">Profile Image (optional)</label>
+                <input type="file" name="profile_image" accept="image/*">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+        <div id="user-info"></div>
+    </div>
+
+    <script>
+        async function getUserInfo(nickname) {
+            const response = await fetch(`/get_user/${nickname}`);
+            const data = await response.json();
+            const userInfo = document.getElementById('user-info');
+            if (data.error) {
+                userInfo.innerHTML = `<p>User not found</p>`;
+            } else {
+                userInfo.innerHTML = `
+                    <p>Nickname: ${data.nickname}</p>
+                    ${data.profile_image ? `<img src="/uploads/${data.profile_image}" alt="Profile Image">` : ''}
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
