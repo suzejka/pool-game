@@ -9,9 +9,18 @@
 <body>
     <div class="app-container">
         <div class="top-bar">
-            <img src="/static/icons/logout.png" alt="Puchar" class="icon">
-            <img src="/static/icons/dots-menu.png" alt="Puchar" class="icon">
+            <a href="/logout">
+                <img src="/static/icons/logout.png" alt="Logout" class="icon">
+            </a>
+            <img src="/static/icons/dots-menu.png" alt="Menu" class="icon" id="menu-icon">
         </div>
+        <div class="menu" id="dropdown-menu">
+            <ul>
+                <li><a href="/your_games">Twoje gry</a></li>
+                <li><a href="/all_games">Wszystkie gry</a></li>
+            </ul>
+        </div>
+
         <div class="profile">
             {% if avatar %}
                 <div class="avatar" style="background-image: url('{{ avatar }}');"></div>
@@ -38,5 +47,21 @@
         </div>
 
     </div>
+
+<script>
+    const menuIcon = document.getElementById('menu-icon');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    menuIcon.addEventListener('click', () => {
+        dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Ukryj menu po kliknięciu poza nim
+    window.addEventListener('click', (e) => {
+        if (!menuIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>

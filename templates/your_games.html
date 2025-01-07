@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twoje Gry</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        /* Stylowanie tabeli */
+        .games-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            /* Stała szerokość kolumn */
+        }
+
+        .games-table th,
+        .games-table td {
+            border: 1px solid #ddd;
+            padding: 8px 12px;
+            text-align: center;
+            font-size: 14px;
+            /* Zmniejszenie czcionki */
+            white-space: nowrap;
+            /* Zapobiega zawijaniu tekstu */
+            overflow: hidden;
+        }
+
+        .games-table th {
+            background-color: #000000;
+            color: white;
+        }
+
+        .games-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .games-table tr:hover {
+            background-color: #ddd;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .no-games {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+            margin: 20px 0;
+        }
+
+        .back-button {
+            margin: 30px auto;
+            display: block;
+            text-align: center;
+        }
+
+        /* Dostosowanie do urządzeń mobilnych */
+        @media (max-width: 768px) {
+
+            .games-table th,
+            .games-table td {
+                font-size: 12px;
+                /* Zmniejszenie czcionki dla mniejszych ekranów */
+                padding: 6px 8px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .games-table th,
+            .games-table td {
+                font-size: 10px;
+                /* Dalsze zmniejszenie czcionki */
+                padding: 4px 6px;
+            }
+
+            h2 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <h2>🎯 Dzisiejsze Gry</h2>
+        {% if today_games %}
+        <table class="games-table">
+            <thead>
+                <tr>
+                    <th>Gracz 1</th>
+                    <th>Gracz 2</th>
+                    <th>Zwycięzca</th>
+                    <th>Typ Gry</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in today_games %}
+                <tr>
+                    <td>{{ game[0] }}</td>
+                    <td>{{ game[1] }}</td>
+                    <td>{{ game[2] }}</td>
+                    <td>{{ game[3] }}</td>
+                    <td>{{ game[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-games">Brak gier z dzisiaj.</p>
+        {% endif %}
+
+        <h2>📅 Gry z Ostatnich 7 Dni</h2>
+        {% if past_week_games %}
+        <table class="games-table">
+            <thead>
+                <tr>
+                    <th>Gracz 1</th>
+                    <th>Gracz 2</th>
+                    <th>Zwycięzca</th>
+                    <th>Typ Gry</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for game in past_week_games %}
+                <tr>
+                    <td>{{ game[0] }}</td>
+                    <td>{{ game[1] }}</td>
+                    <td>{{ game[2] }}</td>
+                    <td>{{ game[3] }}</td>
+                    <td>{{ game[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-games">Brak gier z ostatnich 7 dni.</p>
+        {% endif %}
+
+        <div class="back-button">
+            <a href="/"><button class="glow-on-hover">Powrót</button></a>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -6,12 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj Grę</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <style>
+        .game-type-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .game-type-container label {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .game-type-container img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .game-type-container input {
+            display: none;
+        }
+
+        .game-type-container input:checked+img {
+            border: 2px solid #4CAF50;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 
 <body>
     <div class="app-container">
         <h2>Dodaj grę</h2>
         <form method="POST" class="game-form">
+            <div class="game-type-container">
+                <label>
+                    <input type="radio" name="game_type" value="8-ball" required>
+                    <img src="/static/icons/eight-pool.png" alt="8 Ball">
+                    <div>8 Ball</div>
+                </label>
+                <label>
+                    <input type="radio" name="game_type" value="9-ball">
+                    <img src="/static/icons/nine-pool.png" alt="9 Ball">
+                    <div>9 Ball</div>
+                </label>
+            </div>
             <div class="player-container">
                 <div>
                     <label>Gracz 1:</label>
@@ -43,30 +82,6 @@
             <button class="glow-on-hover">Powrót</button>
         </a>
     </div>
-
-    <!-- Dodajemy JavaScript -->
-    <script>
-        // Funkcja do wyłączenia drugiego checkboxa, jeśli jeden z nich jest zaznaczony
-        const player1Checkbox = document.getElementById("winner-checkbox-player1");
-        const player2Checkbox = document.getElementById("winner-checkbox-player2");
-
-        // Funkcja, która sprawdza, czy jeden z checkboxów jest zaznaczony
-        player1Checkbox.addEventListener("change", function () {
-            if (player1Checkbox.checked) {
-                player2Checkbox.disabled = true;
-            } else {
-                player2Checkbox.disabled = false;
-            }
-        });
-
-        player2Checkbox.addEventListener("change", function () {
-            if (player2Checkbox.checked) {
-                player1Checkbox.disabled = true;
-            } else {
-                player1Checkbox.disabled = false;
-            }
-        });
-    </script>
 </body>
 
 </html>

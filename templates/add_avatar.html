@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj Avatar</title>
     <link rel="stylesheet" href="/static/styles.css">
 </head>
+
 <body>
     <div class="app-container">
         <h2>Dodaj Avatar</h2>
@@ -14,7 +16,9 @@
             <input type="file" name="avatar" id="avatar" accept="image/*" required>
             <button type="submit" class="save-avatar-btn">Zapisz Avatar</button>
         </form>
-        <a href="/"><span class="back-icon">← Powrót</span></a>
+        <!-- Dodany przycisk "Pomiń" -->
+        <a href="/"><button type="button" class="skip-avatar-btn">Pomiń</button></a>
     </div>
 </body>
+
 </html>
