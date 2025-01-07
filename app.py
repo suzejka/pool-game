@@ -202,6 +202,9 @@ def all_games():
 
 @app.route('/add_game', methods=['GET', 'POST'])
 def add_game():
+    if 'nickname' not in session:
+        return redirect(url_for('login'))  # Jeśli brak nickname, przekierowanie do logowania
+    
     if request.method == 'POST':
         player1 = request.form['player1']
         player2 = request.form['player2']
@@ -222,10 +225,9 @@ def add_game():
         # Pobieramy typ gry (8-ball lub 9-ball)
         game_type = request.form.get('game_type')
 
-        # Upewniamy się, że game_type jest ustawiony
-        if game_type not in ['8-ball', '9-ball']:
-            flash("Wybierz poprawny typ gry (8-ball lub 9-ball).", "error")
-            return redirect(url_for('add_game'))
+        # Sprawdzamy, czy typ gry został wybrany
+        if not game_type:
+            return render_template('add_game.html', error="Wybierz poprawny typ gry (8-ball lub 9-ball).")
 
         # Zapisz grę do bazy danych
         with psycopg2.connect(
@@ -235,16 +237,28 @@ def add_game():
             password=DATABASE_PASSWORD
         ) as conn:
             cursor = conn.cursor()
-            cursor.execute('''
+            cursor.execute(''' 
                 INSERT INTO games (player1, player2, winner, game_type) 
                 VALUES (%s, %s, %s, %s)
             ''', (player1, player2, winner, game_type))
             conn.commit()
 
-        flash("Gra została dodana pomyślnie!", "success")
         return redirect(url_for('index'))  # Przekierowanie na stronę główną
 
-    return render_template('add_game.html')
+    # Pobierz listę wszystkich użytkowników (nickname)
+    with psycopg2.connect(
+        host=DATABASE_HOST,
+        database=DATABASE_NAME,
+        user=DATABASE_USER,
+        password=DATABASE_PASSWORD
+    ) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT nickname FROM users")  # Pobieramy tylko nicknames
+        users = cursor.fetchall()
+
+    return render_template('add_game.html', users=users)
+
+
 
 @app.route('/add_beer', methods=['POST'])
 def add_beer():

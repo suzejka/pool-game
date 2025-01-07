@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj Grę</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <!-- Dodanie SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         .game-type-container {
             display: flex;
@@ -54,7 +56,13 @@
             <div class="player-container">
                 <div>
                     <label>Gracz 1:</label>
-                    <input type="text" name="player1" id="player1" required>
+                    <!-- Dropdown list z nickami -->
+                    <select name="player1" id="player1" required>
+                        <option value="" disabled selected>Wybierz gracza</option>
+                        {% for user in users %}
+                        <option value="{{ user[0] }}">{{ user[0] }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="checkbox-wrapper-47">
@@ -66,7 +74,13 @@
             <div class="player-container">
                 <div>
                     <label>Gracz 2:</label>
-                    <input type="text" name="player2" id="player2" required>
+                    <!-- Dropdown list z nickami -->
+                    <select name="player2" id="player2" required>
+                        <option value="" disabled selected>Wybierz gracza</option>
+                        {% for user in users %}
+                        <option value="{{ user[0] }}">{{ user[0] }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
 
                 <div class="checkbox-wrapper-47">
@@ -82,6 +96,17 @@
             <button class="glow-on-hover">Powrót</button>
         </a>
     </div>
+
+    <!-- Skrypt do obsługi popupu -->
+    {% if error %}
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Błąd',
+            text: 'Błąd',
+        });
+    </script>
+    {% endif %}
 </body>
 
 </html>
