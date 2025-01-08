@@ -108,7 +108,7 @@ def login():
             ) as conn:
                 cursor = conn.cursor()
                 cursor.execute('INSERT INTO users (nickname, avatar) VALUES (%s, %s)', 
-                               (session['nickname'], "path"))
+                               (nickname, "path"))
         
             session['nickname'] = nickname
             return redirect(url_for('index'))
