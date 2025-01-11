@@ -11,6 +11,8 @@ body {
     background: linear-gradient(to bottom, #1e1e1e, #0b6623);
     overflow-x: hidden;
     overflow-y: hidden;
+    width: 375px;
+    height: 812px;
 }
 
 .background_pool {
