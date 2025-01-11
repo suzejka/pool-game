@@ -32,25 +32,41 @@ body {
 }
 
 .background_pool {
-    position: relative; 
+    position: absolute; 
     width: 100%;
-    top: 4em;
+    bottom: 0;
     
 }
 
 .background_pool_wrapper {
     position: relative;
     width: 100%;
-    height: auto; /* Dopasowanie do proporcji obrazu */
+    height: 100%;
+}
+.background-section {
+    position: relative;
+    width: 100%;
+    height: 60%;
+    padding-top: 10%;
 }
 
-
+.stats-section {
+    position: relative;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--background);
+}
 .app-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
     /* padding: 20px; */
     box-sizing: border-box;
 }
@@ -66,13 +82,13 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 50px;
+    height: 8%;
     /* background-color: var(--secondary-color); */
     /* color: #fff; */
     display: flex;
     justify-content: space-between; /* Ikony po lewej i prawej stronie */
     align-items: center;
-    padding: 0 15px; /* Odstępy po bokach */
+    padding: 0 5%; /* Odstępy po bokach */
     z-index: 1000;
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
     box-sizing: border-box;
@@ -109,21 +125,21 @@ body {
 }
 
 
-.container {
+/* .container {
     position: relative;
     width: 100%;
-    height: 100vh; /* Wysokość całego widoku */
+    height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-top: 20px;
-    /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--background)); */
+    padding-top: 0%;
+    bottom: 0;
 
-}
+} */
 
 .nickname {
     position: absolute;
-    /* bottom: 0; */
+    bottom: 0;
     width: 100%; /* Pełna szerokość */
     text-align: center;
     font-size: 32px;
@@ -132,7 +148,7 @@ body {
     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--background));
     /* background-color: var(--background); */
     /* padding: 10px 0; */
-    padding-top: 3%;
+    padding-top: 25%;
 }
 
 .progress_container {
@@ -179,7 +195,6 @@ body {
     width: var(--progress);
 }
 
-/* Pasek dla 9-ball */
 .progress-9ball {
     --progress: 40%; /* Wartość postępu dla 9-ball */
 }
@@ -761,11 +776,13 @@ body {
 }
 
 #profiles {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(10px, 0.8vw, 20px);
-  justify-content: center;
-  background-color: var(--background);
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(10px, 0.8vw, 20px);
+    justify-content: center;
+    background-color: var(--background);
   /* margin-left: 80px; */
   /* width: clamp(600px, 80vw, 1400px); */
 }

@@ -10,100 +10,80 @@
 
 <body>
     <div class="app-container">
-        <div class="top-bar">
-            <a href="/logout">
-                <img src="/static/icons/logout.png" alt="Logout" class="icon">
-            </a>
-            <div class="icon-container">
-                <span class="stat-value">{{ beers }}</span>
-                <img src="/static/icons/beer-white.png" alt="Beer Icon" class="icon">
+                    <div class="top-bar">
+                        <a href="/logout">
+                            <img src="/static/icons/logout.png" alt="Logout" class="icon">
+                        </a>
+                        <div class="icon-container">
+                            <span class="stat-value">{{ beers }}</span>
+                            <img src="/static/icons/beer-white.png" alt="Beer Icon" class="icon">
+                        </div>
+                        <img src="/static/icons/dots-menu.png" alt="Menu" class="icon" id="menu-icon">
+                    </div>
+                    <div class="menu" id="dropdown-menu">
+                        <ul>
+                            <li><a href="/your_games">Twoje gry</a></li>
+                            <li><a href="/all_games">Wszystkie gry</a></li>
+                        </ul>
+                    </div>
+        <div class="background-section">
+            <div class="background_pool_wrapper">
+                <img class="background_pool" src="/static/pool-table-no-bachground.png" alt="Pool table">
+                <div class="nickname">Witaj {{ user if user else 'Gość' }}!</div>
             </div>
-            <img src="/static/icons/dots-menu.png" alt="Menu" class="icon" id="menu-icon">
         </div>
-        <div class="menu" id="dropdown-menu">
-            <ul>
-                <li><a href="/your_games">Twoje gry</a></li>
-                <li><a href="/all_games">Wszystkie gry</a></li>
-            </ul>
-        </div>
+        <div class="stats-section">
 
-        
-        <div class="background_pool_wrapper">
-            <img class="background_pool" src="/static/pool-table-no-bachground.png" alt="Pool table">
-            <div class="nickname">Witaj {{ user if user else 'Gość' }}!</div>
-        </div>
-        <div class="container">
-            <div class="progress_container">
-                <div class="progress progress-8ball">
-                    <div class="bar">
-                        <div class="progress-value"></div>
-                    </div>
-                </div>
-                <div class="progress progress-9ball">
-                    <div class="bar">
-                        <div class="progress-value"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="profiles">
-                <div class="profile">
-                    <div class="profile-content">
-                        <div class="profile-pic">
-                            <img class="profile-pic-image"
-                                src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500" />
+                <div class="progress_container">
+                    <div class="progress progress-8ball">
+                        <div class="bar">
+                            <div class="progress-value"></div>
                         </div>
-                        <h3 class="profile-name">ANDY</h3>
                     </div>
-                </div>
-                <div class="profile">
-                    <div class="profile-content">
-                        <div class="profile-pic">
-                            <img class="profile-pic-image"
-                                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500" />
+                    <div class="progress progress-9ball">
+                        <div class="bar">
+                            <div class="progress-value"></div>
                         </div>
-                        <h3 class="profile-name">OLIVIA</h3>
                     </div>
                 </div>
-                <div class="profile">
-                    <div class="profile-content">
-                        <div class="profile-pic">
-                            <img class="profile-pic-image"
-                                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500" />
+                <div id="profiles">
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">ANDY</h3>
                         </div>
-                        <h3 class="profile-name">NOAH</h3>
                     </div>
-                </div>
-                <div class="profile">
-                    <div class="profile-content">
-                        <div class="profile-pic">
-                            <img class="profile-pic-image"
-                                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500" />
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">OLIVIA</h3>
                         </div>
-                        <h3 class="profile-name">EMMA</h3>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">NOAH</h3>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">EMMA</h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            </div>
-            
-            <!-- <div class="players">
-                <div class="player">
-                    <img src="/static/user.png" alt="User">
-                    <span class="player-name">Player 1</span>
-                </div>
-                <div class="player">
-                    <img src="/static/user.png" alt="User">
-                    <span class="player-name">Player 2</span>
-                </div>
-                <div class="player">
-                    <img src="/static/user.png" alt="User">
-                    <span class="player-name">Player 3</span>
-                </div>
-                <div class="player">
-                    <img src="/static/user.png" alt="User">
-                    <span class="player-name">Player 3</span>
-                </div>
-            </div> -->
         </div>
     </div>
 
