@@ -5,30 +5,78 @@
     --background: #202526;
 }
 
-@media screen and (max-width: 768px) {
-    body {
-        font-size: 14px; /* Zmniejsz rozmiar tekstu na mniejszych ekranach */
-    }
-
-    .container {
-        padding: 10px; /* Dopasowanie paddingu */
-    }
-
-    /* Przykład dla elementów, które mogą się rozjeżdżać */
-    .column {
-        display: block; /* Zmieniamy układ z flexboxa na blokowy */
-        width: 100%;
-    }
-}
-
+/* Ensure the viewport is set correctly */
 body {
     margin: 0;
     font-family: 'Rubik', sans-serif;
     background: linear-gradient(to bottom, #1e1e1e, #0b6623);
     overflow-x: hidden;
-    overflow-y: hidden;
-    width: 375px;
-    height: 812px;
+    overflow-y: auto; /* Allow vertical scrolling */
+    width: 100vw; /* Use viewport width */
+    height: 100vh; /* Use viewport height */
+    box-sizing: border-box;
+}
+
+/* Adjustments for smaller screens */
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .column {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* Additional adjustments for iPhone dimensions */
+@media screen and (max-width: 375px) {
+    body {
+        font-size: 12px;
+    }
+
+    .top-bar {
+        height: 10%;
+        padding: 0 2%;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    .progress_container {
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+
+    .player {
+        width: 20%;
+    }
+
+    .player img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .add-game-btn, .save-game-btn, .back-icon, .beer-btn {
+        font-size: 14px;
+        padding: 8px 20px;
+    }
 }
 
 .background_pool {
