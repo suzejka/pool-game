@@ -3,6 +3,7 @@ import psycopg2
 import os
 from werkzeug.utils import secure_filename
 from dotenv import load_dotenv
+from flask import session, redirect, url_for
 from datetime import datetime, timedelta
 
 load_dotenv()
@@ -115,8 +116,6 @@ def login():
     
     return render_template('login.html')
 
-from flask import session, redirect, url_for
-
 @app.route('/logout')
 def logout():
     session.clear()  # Wyczyść sesję użytkownika
@@ -169,8 +168,48 @@ def your_games():
 
 @app.route('/all_games')
 def all_games():
-    # Logika wyświetlania wszystkich gier
-    return "Wszystkie gry"
+    today = datetime.now().date()
+    seven_days_ago = today - timedelta(days=7)
+    
+    # Odczytaj nickname z sesji
+    nickname = session.get('nickname')  # Załóżmy, że nickname jest zapisany w sesji
+
+    # Jeśli brak nickname, użytkownik nie jest zalogowany, przekieruj
+    if not nickname:
+        return redirect(url_for('login'))  # Możesz przekierować do strony logowania
+
+    with psycopg2.connect(
+        host=DATABASE_HOST,
+        database=DATABASE_NAME,
+        user=DATABASE_USER,
+        password=DATABASE_PASSWORD
+    ) as conn:
+        cursor = conn.cursor()
+        
+        # Gry z dzisiaj, gdzie nickname pasuje do gracza
+        cursor.execute('''
+            SELECT player1, player2, winner, game_type, date::date AS game_date
+            FROM games 
+            WHERE date::date = %s
+            ORDER BY date DESC
+        ''', (today,))
+        today_games = cursor.fetchall()
+        
+        # Gry z ostatnich 7 dni, gdzie nickname pasuje do gracza
+        cursor.execute('''
+            SELECT player1, player2, winner, game_type, date::date AS game_date
+            FROM games 
+            WHERE date::date BETWEEN %s AND %s
+            AND date::date != %s
+            ORDER BY date DESC
+        ''', (seven_days_ago, today, today))
+        past_week_games = cursor.fetchall()
+    
+    return render_template(
+        'your_games.html',
+        today_games=today_games,
+        past_week_games=past_week_games
+    )
 
 # # Strona dodawania avatara
 # @app.route('/add_avatar', methods=['GET', 'POST'])
@@ -278,6 +317,7 @@ def add_beer():
 
 # Uruchomienie aplikacji
 if __name__ == '__main__':
+    app.run(debug=True)
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
     app.run(debug=True)

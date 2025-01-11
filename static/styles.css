@@ -1,9 +1,31 @@
-/* Ogólne style dla aplikacji */
+:root {
+    --primary-color: #2C5F2D; /* Butelkowa zieleń */
+    --secondary-color: #F5F5DC; /* Kremowy biały */
+    --accent-color: #D4AF37; /* Złoty żółty */
+    --background: #202526;
+}
+
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f9fafc;
+    font-family: 'Rubik', sans-serif;
+    background: linear-gradient(to bottom, #1e1e1e, #0b6623);
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
+
+.background_pool {
+    position: relative; 
+    width: 100%;
+    top: 4em;
+    
+}
+
+.background_pool_wrapper {
+    position: relative;
+    width: 100%;
+    height: auto; /* Dopasowanie do proporcji obrazu */
+}
+
 
 .app-container {
     display: flex;
@@ -11,7 +33,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
 }
 
@@ -27,14 +49,14 @@ body {
     left: 0;
     width: 100%;
     height: 50px;
-    background-color: #fff;
-    color: #fff;
+    /* background-color: var(--secondary-color); */
+    /* color: #fff; */
     display: flex;
     justify-content: space-between; /* Ikony po lewej i prawej stronie */
     align-items: center;
     padding: 0 15px; /* Odstępy po bokach */
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */
     box-sizing: border-box;
 }
 
@@ -44,35 +66,6 @@ body {
     cursor: pointer;
 }
 
-
-/* Pasek górny
-.top-bar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    box-sizing: border-box;
-    background-color: #fff;
-    border-bottom: 1px solid #eaeaea;
-}
-
-.top-bar .icon {
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-}
-
-.top-bar .icon:hover {
-    color: #0078d4;
-} */
-
-/* Profil użytkownika */
-.profile {
-    text-align: center;
-    margin-top: 40px;
-}
-
 .avatar {
     width: 120px;
     height: 120px;
@@ -80,7 +73,7 @@ body {
     margin: 0 auto 10px;
     background-size: cover;
     background-position: center;
-    background-color: #f0f0f0; /* Kolor tła w przypadku braku avatara */
+    background-color: var(--secondary-color); /* Kolor tła w przypadku braku avatara */
 }
 .skip-avatar-btn {
     background-color: #f44336;  /* Czerwony kolor tła */
@@ -98,29 +91,149 @@ body {
 }
 
 
-.nickname {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-}
-
-
-
-/* Statystyki */
-.stats {
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Wysokość całego widoku */
     display: flex;
-    justify-content: center; /* Wyśrodkowanie przycisków */
-    align-items: center; /* Wyśrodkowanie w pionie */
-    gap: 20px; /* Odstęp między przyciskami */
-    margin: 20px 0; /* Odstępy od góry i dołu */
-    width: 100%; /* Pełna szerokość kontenera */
-    text-align: center; /* Dodatkowe wyrównanie tekstu */
-    /* display: flex;
-    justify-content: space-around;
-    width: 60%;
-    margin: 20px 0; */
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-top: 20px;
+    /* background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--background)); */
+
 }
+
+.nickname {
+    position: absolute;
+    /* bottom: 0; */
+    width: 100%; /* Pełna szerokość */
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--secondary-color, #fff);
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--background));
+    /* background-color: var(--background); */
+    /* padding: 10px 0; */
+    padding-top: 3%;
+}
+
+.progress_container {
+    position: absolute;
+    width: 100%; /* Szerokość kontenera */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    top: 40%; /*** Ustawienie środka w pionie ***/
+    left: 50%; /*** Ustawienie środka w poziomie ***/
+    transform: translate(-50%, -50%); /*** Przesunięcie środka w obie osie ***/
+    background-color: var(--background);
+    padding-top: 8%;
+    padding-bottom: 8%;
+}
+
+.progress {
+    --progress: 0%; /* Przykładowa wartość postępu */
+    width: 80%; /* Szerokość paska postępu */
+    height: 15px; /* Wysokość paska */
+    margin: auto; /* Wyśrodkowanie */
+    border: 1px solid #fff; /* Obramowanie */
+    box-shadow: 0 0 10px #aaa; /* Efekt światła */
+}
+
+.progress .bar {
+  width: var(--progress);
+  height: 100%;
+  background: linear-gradient(gold, #c85, gold);
+  background-repeat: repeat;
+  box-shadow: 0 0 10px 0px orange;
+  animation: 
+    shine 4s ease-in infinite,
+    end 1s ease-out 1;
+  transition: width 3s ease;
+}
+
+.progress-8ball {
+    --progress: 70%; /* Wartość postępu dla 8-ball */
+}
+
+.progress-8ball .bar {
+    width: var(--progress);
+}
+
+/* Pasek dla 9-ball */
+.progress-9ball {
+    --progress: 40%; /* Wartość postępu dla 9-ball */
+}
+
+.progress-9ball .bar {
+    width: var(--progress);
+}
+
+@property --progress {
+  syntax: "<length>";
+  initial-value: 0%;
+  inherits: true;
+}
+
+@keyframes shine {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 50px; }
+}
+
+@keyframes end {
+  0%, 100% { box-shadow: 0 0 10px 0px orange; }
+  50% { box-shadow: 0 0 15px 5px orange; }
+}
+
+.player-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--secondary-color, #fff); /* Kolor nazwy */
+    text-align: center; /* Wyśrodkowanie tekstu */
+}
+
+.players {
+    position: fixed;
+    bottom: 0; /* Przyklejenie do dołu */
+    width: 100%; /* Pełna szerokość */
+    display: flex;
+    justify-content: center;
+    gap: 5px; /* Odstępy między elementami */
+    padding: 10px 0;
+    align-items: center;
+    background-color: var(--background);
+}
+
+.player img {
+    width: 50px; /* Szerokość awatara */
+    height: 50px; /* Wysokość awatara */
+    border-radius: 50%; /* Okrągły avatar */
+    border: 2px solid var(--primary-color, #fff); /* Obramowanie */
+}
+
+.player {
+    width: 15%;
+    /* background-color: #000; */
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--primary-color));
+    padding-top: 3%;
+    padding-bottom: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column; /* Ustawienie w pionie */
+    align-items: center; /* Wyśrodkowanie w poziomie */
+    /* box-shadow: 0 0 10px var(--primary-color); */
+}
+
+.icon-container {
+    position: relative; /* Aby liczba mogła być umieszczona względem kontenera */
+    display: inline-block; /* Ustawienie w linii z innymi elementami */
+    width: 50px; /* Szerokość ikony */
+    height: 50px; /* Wysokość ikony */
+}
+
 
 .stat {
     display: flex;
@@ -149,12 +262,19 @@ body {
 }
 
 .stat-value {
-    font-size: 20px;
-    font-weight: bold;
+    position: absolute; /* Pozycjonowanie liczby względem kontenera */
+    top: 50%; /* Wyśrodkowanie w pionie */
+    left: 50%; /* Wyśrodkowanie w poziomie */
+    transform: translate(-50%, -50%); /* Dokładne wyśrodkowanie */
+    color: #fff; /* Kolor tekstu */
+    font-size: 14px; /* Rozmiar czcionki */
+    font-weight: bold; /* Pogrubienie */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    pointer-events: none; /* Wyłączenie interakcji z liczbą */
 }
 
 .add-game-btn {
-    background-color: #ff7f7f;
+    background-color: var(--secondary-color);
     color: white;
     font-size: 16px;
     padding: 10px 25px;
@@ -176,7 +296,7 @@ body {
 #add-game-view h2 {
     margin: 20px 0;
     font-size: 24px;
-    color: #333;
+    color: var(--secondary-color);
 }
 
 .game-form {
@@ -304,7 +424,7 @@ body {
     height: 40px; /* Stała wysokość przycisku */
     border: none;
     outline: none;
-    color: #fff;
+    color: var(--primary-color);
     background: #111;
     cursor: pointer;
     position: relative;
@@ -349,7 +469,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #111;
+    background: var(--secondary-color);;
     left: 0;
     top: 0;
     border-radius: 10px;
@@ -416,7 +536,7 @@ body {
     position: absolute;
     top: 50px;
     right: 10px;
-    background: #fff;
+    background: var(--secondary-color);;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -463,4 +583,242 @@ body {
     border-radius: 5px;
     text-align: center;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+  --light-blue: rgb(32, 18, 95);
+  --dark-blue: rgb(204, 100, 223);
+  --violet: rgb(119, 188, 236);
+  
+  --background-left: rgb(29, 33, 68);
+  --background-right: rgb(30, 25, 47);
+  
+  --conic-gradient: conic-gradient(
+    var(--dark-blue), 
+    var(--violet), 
+    var(--light-blue),
+    var(--dark-blue)
+  );
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  from, 20%, 40%, 80%, to {
+    transform: scale(1);
+  }
+  
+  10%, 60% {
+    transform: scale(1.1);
+  }
+}
+
+/* body {
+  background: linear-gradient(
+    to right, 
+    var(--background-left), 
+    var(--background-right)
+  );
+  height: 100vh;
+  margin: 0px;
+  overflow: hidden;
+  padding: 0px;
+} */
+
+/* #background {
+  display: grid;
+  inset: 0px;  
+  place-items: center;
+  position: fixed;
+  z-index: 1;
+} */
+
+#circle {
+  animation: rotate 10s linear infinite;
+  background: var(--conic-gradient);
+  border-radius: 70vh;
+  display: grid;
+  filter: blur(1.5vh);
+  height: 70vh;
+  place-items: center;
+  position: relative;
+  width: 70vh;
+}
+
+#circle-inner {
+  border-radius: inherit;
+  inset: 5%;
+  position: absolute;
+}
+
+#circle-glow {
+  animation: pulse 10s ease-in-out infinite;
+  background: var(--conic-gradient);
+  border-radius: 100vh;
+  filter: blur(3vh);
+  height: 120%;
+  opacity: 0.25;
+  width: 120%;
+  z-index: 2;
+}
+
+#circle-inner {
+  background: linear-gradient(
+    to right, 
+    var(--background-left), 
+    var(--background-right)
+  );
+  z-index: 3;
+}
+
+#app {
+  display: grid;
+  height: 100vh;
+  place-items: center;
+  position: relative;
+  width: 100vw;
+  z-index: 2;
+}
+
+#nav {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  left: 0px;
+  position: fixed;
+  top: 0px;
+  width: 120px;
+}
+
+#nav-items {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 120px;
+}
+
+#nav-items > .nav-item {
+  border-radius: 6px;
+  cursor: pointer;
+  display: grid;
+  height: 100px;
+  place-items: center;
+  transition: background-color 250ms;
+  width: 100px;
+}
+
+#nav-items > .nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+#nav-items > .nav-item:hover > i {
+  color: rgba(255, 255, 255, 0.9); 
+}
+
+#nav-items > .nav-item > i {
+  color: rgba(255, 255, 255, 0.4); 
+  font-size: 2.5em;
+  transition: color 250ms;
+}
+
+#profiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 0.8vw, 20px);
+  justify-content: center;
+  background-color: var(--background);
+  /* margin-left: 80px; */
+  /* width: clamp(600px, 80vw, 1400px); */
+}
+
+#profiles > .profile {
+  aspect-ratio: 7 / 8;
+  backdrop-filter: blur(0.75vw);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 1vw;
+  cursor: pointer;
+  transition: background-color 250ms;
+  width: calc(25% - clamp(10px, 0.8vw, 20px));
+}
+
+#profiles > .profile:hover {
+  backdrop-filter: blur(1vw);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile > .profile-content {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: calc(100% - clamp(8px, 1vw, 12px));
+  justify-content: center;
+  padding: clamp(8px, 1vw, 12px);
+}
+
+.profile > .profile-content > .profile-pic {
+  aspect-ratio: 1;
+  border: clamp(3px, 0.4vw, 5px) solid white;
+  border-radius: 100%;
+  flex-shrink: 0;
+  height: 70%;
+  position: relative;
+}
+
+.profile > .profile-content > .profile-pic > .profile-pic-image {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 100%;
+  height: calc(100% - clamp(10px, 1.5vw, 20px));
+  margin: clamp(5px, 0.75vw, 10px);
+  object-fit: cover;
+  width: calc(100% - clamp(10px, 1.5vw, 20px));
+}
+
+.profile > .profile-content > .profile-name {
+  color: white;
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(1em, 2vw, 2em);
+  margin: 0px;
+  text-align: center;
+}
+
+@media(max-width: 1200px), (max-height: 900px) { 
+  #nav {
+    width: 80px;
+  }
+
+  #nav-items {
+    gap: 5px;
+    width: 80px;
+  }
+
+  #nav-items > .nav-item {
+    border-radius: 6px;
+    height: 60px;
+    width: 60px;
+  }
+
+  #nav-items > .nav-item > i {
+    font-size: 1.5em;
+  }
 }
