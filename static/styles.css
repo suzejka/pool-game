@@ -5,6 +5,22 @@
     --background: #202526;
 }
 
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px; /* Zmniejsz rozmiar tekstu na mniejszych ekranach */
+    }
+
+    .container {
+        padding: 10px; /* Dopasowanie paddingu */
+    }
+
+    /* Przykład dla elementów, które mogą się rozjeżdżać */
+    .column {
+        display: block; /* Zmieniamy układ z flexboxa na blokowy */
+        width: 100%;
+    }
+}
+
 body {
     margin: 0;
     font-family: 'Rubik', sans-serif;
