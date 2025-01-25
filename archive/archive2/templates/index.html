@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wielka Ursynowska Bilariada</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+                    <div class="top-bar">
+                        <a href="/logout">
+                            <img src="/static/icons/logout.png" alt="Logout" class="icon">
+                        </a>
+                        <div class="icon-container">
+                            <span class="stat-value">{{ beers }}</span>
+                            <img src="/static/icons/beer-white.png" alt="Beer Icon" class="icon">
+                        </div>
+                        <img src="/static/icons/dots-menu.png" alt="Menu" class="icon" id="menu-icon">
+                    </div>
+                    <div class="menu" id="dropdown-menu">
+                        <ul>
+                            <li><a href="/add_game">Dodaj grę</a></li>
+                            <li><a href="/your_games">Twoje gry</a></li>
+                            <li><a href="/all_games">Wszystkie gry</a></li>
+                        </ul>
+                    </div>
+        <div class="background-section">
+            <div class="background_pool_wrapper">
+                <img class="background_pool" src="/static/pool-table-no-bachground.png" alt="Pool table">
+                <div class="nickname">Witaj {{ user if user else 'Gość' }}!</div>
+                <hr>
+            </div>
+        </div>
+        <div class="stats-section">
+                <div class="progress_container">
+                    <div class="progress progress-8ball">
+                        <div class="bar">
+                            <div class="progress-value"></div>
+                        </div>
+                    </div>
+                    <div class="progress progress-9ball">
+                        <div class="bar">
+                            <div class="progress-value"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="profiles">
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">ANDY</h3>
+                            <div class="profile-stats">
+                                <img src="/static/icons/success-white.png" alt="Win Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ games }}</span>
+                                <img src="/static/icons/beer-white.png" alt="Beer Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ beers }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">OLIVIA</h3>
+                            <div class="profile-stats">
+                                <img src="/static/icons/success-white.png" alt="Win Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ games }}</span>
+                                <img src="/static/icons/beer-white.png" alt="Beer Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ beers }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">NOAH</h3>
+                            <div class="profile-stats">
+                                <img src="/static/icons/success-white.png" alt="Win Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ games }}</span>
+                                <img src="/static/icons/beer-white.png" alt="Beer Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ beers }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <div class="profile-content">
+                            <div class="profile-pic">
+                                <img class="profile-pic-image"
+                                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzB8fHBlb3BsZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500" />
+                            </div>
+                            <h3 class="profile-name">EMMA</h3>
+                            <div class="profile-stats">
+                                <img src="/static/icons/success-white.png" alt="Win Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ games }}</span>
+                                <img src="/static/icons/beer-white.png" alt="Beer Icon" class="player-stat-icon">
+                                <span class="player-stat-value">{{ beers }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <script>
+        const menuIcon = document.getElementById('menu-icon');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        menuIcon.addEventListener('click', () => {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Ukryj menu po kliknięciu poza nim
+        window.addEventListener('click', (e) => {
+            if (!menuIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.style.display = 'none';
+            }
+        });
+
+        const progress = document.querySelector(".progress");
+
+        progress.addEventListener("click", () => {
+            const value = Math.floor(Math.random() * 100);
+            progress.style.setProperty("--progress", `${value}%`);
+        });
+    </script>
+</body>
+
+</html>

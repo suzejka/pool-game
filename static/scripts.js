@@ -1,40 +1,58 @@
-async function updateBeerCount(delta) {
-    const beerCountElement = document.querySelector('#beer-count');
-    let beerCount = parseInt(beerCountElement.innerText);
-    const nickname = 'Bob522';  // Zmień na odpowiednią wartość (np. na dynamiczną)
+document.addEventListener('DOMContentLoaded', () => {
+  const views = document.querySelectorAll('[id^="view-"]');
+  const buttons = document.querySelectorAll('.btn');
+  const loginForm = document.getElementById('login-form');
+  const addGameForm = document.getElementById('add-game-form');
+  const addBeerBtn = document.getElementById('add-beer-btn');
 
-    beerCount += delta;
-    if (beerCount < 0) beerCount = 0;  // Zapewnia, że liczba piwa nie spadnie poniżej 0.
+  let stats = {
+    wins: 0,
+    beers: 0,
+  };
 
-    // Zaktualizuj widok
-    beerCountElement.innerText = beerCount;
+  const updateStats = () => {
+    document.getElementById('stat-wins').textContent = stats.wins;
+    document.getElementById('stat-beers').textContent = stats.beers;
+  };
 
-    // Wyślij zapytanie do serwera w celu aktualizacji liczby piwa
-    await fetch('/update_beer_count', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ nickname: nickname, beerCount: beerCount }),
+  const showView = (viewId) => {
+    views.forEach((view) => {
+      view.classList.toggle('hidden', view.id !== viewId);
     });
-}
+  };
 
-// Obsługuje kliknięcia przycisków
-document.getElementById('beer-increment').addEventListener('click', () => updateBeerCount(1));
-document.getElementById('beer-decrement').addEventListener('click', () => updateBeerCount(-1));
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetView = button.getAttribute('data-target');
+      showView(targetView);
+    });
+  });
 
-// Pobranie początkowych danych
-async function fetchStats() {
-    const response = await fetch('/stats');
-    const data = await response.json();
-    document.querySelector('#total-games').innerText = data.total_games;
-    // Dodatkowo załaduj liczbę piwa dla użytkownika
-    const beerCountResponse = await fetch(`/get_beer_count?nickname=Bob522`);  // Jeśli chcesz dynamicznie
-    const beerCountData = await beerCountResponse.json();
-    document.querySelector('#beer-count').innerText = beerCountData.beer_count || 0;
-}
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    showView('view-home');
+  });
 
-fetchStats();
+  addGameForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const opponent = document.getElementById('opponent').value;
+    const result = document.getElementById('result').value;
+    if (result.startsWith('5-')) {
+      stats.wins += 1;
+    }
+    const friendList = document.getElementById('friends-list');
+    const newFriend = document.createElement('li');
+    newFriend.classList.add('flex', 'justify-between');
+    newFriend.innerHTML = `<span>${opponent}</span><span>Wynik: ${result}</span>`;
+    friendList.appendChild(newFriend);
+    updateStats();
+    showView('view-home');
+  });
 
+  addBeerBtn.addEventListener('click', () => {
+    stats.beers += 1;
+    updateStats();
+  });
 
-
+  showView('view-login');
+});
