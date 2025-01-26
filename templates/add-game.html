@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dodaj grę</title>
+  <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .btn {
+            @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-400;
+        }
+    </style>
+</head>
+<body class="text-white font-sans h-screen w-screen">
+
+    <div id="view-add-game" class="h-full flex flex-col items-center justify-center overflow-hidden">
+        <h1 class="text-2xl font-bold mb-4">Dodaj rozgrywkę</h1>
+        <!-- form -->
+         <form method="POST">
+            <div class="mb-4">
+                <div class="">
+                    <div class="inline-flex items-center gap-2">
+                        <label for="eight_pool_game_type" class="text-lg font-semibold mb-2 cursor-pointer">8-pool</label>
+                        <div class="relative inline-block w-11 h-5">
+                            <input id="eight_pool_game_type" type="checkbox"
+                                class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-slate-800 cursor-pointer transition-colors duration-300" />
+                            <label for="eight_pool_game_type"
+                                class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer">
+                            </label>
+                        </div>
+                        <label for="eight_pool_game_type" class="text-lg font-semibold mb-2 cursor-pointer">9-pool</label>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="opponent" class="block text-lg font-semibold mb-2">Przeciwnik</label>
+                <select id="opponent" name="opponent" class="w-full p-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                    <option value="" disabled selected>Wybierz przeciwnika</option>
+                    {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+            </div>
+            <div class="mb-4">
+                <div class="flex items-center">
+                    <input checked id="checked-checkbox" type="checkbox" value=""
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <label for="checked-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Zwycięstwo?</label>
+                </div>
+            </div>
+            <button type="submit" class="btn w-full">Dodaj</button>
+         </form>
+        <a href="/home" class="btn mt-6">Powrót</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statystyki</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .btn {
+            @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-400;
+        }
+    </style>
+</head>
+
+<body class="text-white font-sans h-screen w-screen">
+
+    <div id="view-friends" class="h-full flex flex-col items-center justify-center overflow-hidden">
+        <h1 class="text-2xl font-bold mb-4">Twoi znajomi</h1>
+        <ul class="w-4/5 space-y-4">
+            <li class="flex justify-between">
+                <span>Jan Kowalski</span>
+                <span>Wygrane: 3</span>
+            </li>
+            <li class="flex justify-between">
+                <span>Anna Nowak</span>
+                <span>Wygrane: 8</span>
+            </li>
+        </ul>
+        <a href="/home">Powrót</a>
+    </div>
+
+</body>
+
+</html>
