@@ -1,14 +1,38 @@
+:root {
+  --main-background: #4b2d91;
+  --light-color: #7749e6;
+  --dark-text-color: #1f133c;
+  --dark-background: #352166;
+  --linen: #F7ECE1;
+  --french-grey: #A59BAB;
+
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background: #4b2d91;
-  color: #fff;
+  background: var(--main-background);
+  color: var(--linen);
 }
 
 .container {
   text-align: center;
   padding: 20px;
+}
+
+.login_button{
+  font-weight: bold;
+}
+
+.text_input {
+  width: 100%;
+  padding: 10px;
+  background: var(--dark-background);
+  color: var(--linen);
+  border: none;
+  border-radius: 5px;
+
 }
 
 form {
@@ -25,14 +49,14 @@ input, button {
 }
 
 button {
-  background: #4CAF50;
+  background: var(--dark-text-color);
   color: white;
   font-size: 16px;
   cursor: pointer;
 }
 
 button:hover {
-  background: #45a049;
+  background: var(--dark-text-color);
 }
 
 nav ul {
@@ -46,7 +70,7 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #4CAF50;
+  color: var(--dark-text-color);
   text-decoration: none;
 }
 
@@ -56,4 +80,36 @@ nav ul li a:hover {
 
 .game-type-icon {
   width: 15%;
+}
+
+.submit_button:disabled {
+  color: #666666;
+  cursor: not-allowed;
+}
+
+.swal2-popup {
+    background-color: var(--dark-background)!important;
+}
+
+.swal2-confirm{
+    background-color: var(--light-color)!important;
+}
+
+.winner_button {
+    display: inline-block;
+    background-color: var(--dark-text-color);
+    color: var(--linen);
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%; /* Adjusted width to fit two buttons side by side */
+    margin: 5px;
+}
+
+.winner_picker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

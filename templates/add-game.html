@@ -16,10 +16,8 @@
 
     <div id="view-add-game" class="h-full flex flex-col items-center justify-center overflow-hidden">
         <h1 class="text-2xl font-bold mb-4">Dodaj rozgrywkę</h1>
-        <!-- form -->
          <form method="POST">
             <div class="mb-4">
-                <div class="">
                     <div class="inline-flex items-center gap-2">
                         <label for="eight_pool_game_type" class="text-lg font-semibold mb-2 cursor-pointer">8-pool</label>
                         <div class="relative inline-block w-11 h-5">
@@ -31,26 +29,52 @@
                         </div>
                         <label for="eight_pool_game_type" class="text-lg font-semibold mb-2 cursor-pointer">9-pool</label>
                     </div>
-                </div>
+                
             </div>
             <div class="mb-4">
                 <label for="opponent" class="block text-lg font-semibold mb-2">Przeciwnik</label>
-                <select id="opponent" name="opponent" class="w-full p-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500" required>
+                <select id="opponent" name="opponent" class="w-full p-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-white" required>
                     <option value="" disabled selected>Wybierz przeciwnika</option>
                     {% for user in users %}
                     <option value="{{ user.id }}">{{ user.username }}</option>
                     {% endfor %}
+                </select>
             </div>
             <div class="mb-4">
-                <div class="flex items-center">
-                    <input checked id="checked-checkbox" type="checkbox" value=""
-                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                    <label for="checked-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Zwycięstwo?</label>
+                <label class="block text-lg font-semibold mb-2">Wybierz zwycięzcę</label>
+                <div class="winner_picker">
+                    <input type="button" id="player1-btn" value="Ty" class="winner_button" onclick="selectWinner('player1')">
+                    <input type="button" id="player2-btn" value="Przeciwnik" class="winner_button" onclick="selectWinner('player2')">
                 </div>
+                <input type="hidden" id="winner" name="winner" required>
             </div>
             <button type="submit" class="btn w-full">Dodaj</button>
          </form>
         <a href="/home" class="btn mt-6">Powrót</a>
     </div>
+
+    <script>
+        function selectWinner(player) {
+            const player1Btn = document.getElementById('player1-btn');
+            const player2Btn = document.getElementById('player2-btn');
+            const winnerInput = document.getElementById('winner');
+
+            if (player === 'player1') {
+                player1Btn.classList.add('bg-green-500');
+                player1Btn.classList.remove('bg-gray-800');
+                player2Btn.classList.add('bg-gray-800');
+                player2Btn.classList.remove('bg-green-500');
+                winnerInput.value = document.getElementById('player1').value;
+            } else {
+                player2Btn.classList.add('bg-green-500');
+                player2Btn.classList.remove('bg-gray-800');
+                player1Btn.classList.add('bg-gray-800');
+                player1Btn.classList.remove('bg-green-500');
+                winnerInput.value = document.getElementById('player2').value;
+            }
+        }
+    </script>
+
+
 </body>
 </html>

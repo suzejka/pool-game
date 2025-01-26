@@ -5,10 +5,6 @@ from services import database_service as db
 app = Flask(__name__)
 app.secret_key = '3a26ac0d-7470-43fd-98a3-1bb7de9bad33'
 
-users = {'test': '123', 'player2': 'password456'}
-games = []  # Lista przechowująca gry
-beers = 0   # Ilość wypitego piwa
-
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -33,18 +29,20 @@ def home():
 def add_game():
     if 'username' not in session:
         return redirect(url_for('login'))
-    username = session['username']
     if request.method == 'POST':
-        eight_pool_game_type = request.form['eight_pool_game_type']
-        if eight_pool_game_type:
-            game_type = 'eight-pool'
-        else:
-            game_type = 'nine-pool'
-        player1_id = db.get_user_id(username)
-        player2_id = request.form['opponent']
-        winner_id = request.form['winner']
-        return redirect(url_for('home'))
-    return render_template('add-game.html')
+        username = session['username']
+        if request.method == 'POST':
+            eight_pool_game_type = request.form['eight_pool_game_type']
+            if eight_pool_game_type:
+                game_type = 'eight-pool'
+            else:
+                game_type = 'nine-pool'
+            player1_id = db.get_user_id(username)
+            player2_id = request.form['opponent']
+            winner_id = request.form['winner']
+            return redirect(url_for('home'))
+        
+    return render_template('add-game.html', users=db.get_users())
 
 # Dodawanie piwa
 @app.route('/add-beer', methods=['GET', 'POST'])
@@ -80,11 +78,8 @@ def signup():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        second_password = request.form['second-password']
-        if password != second_password:
-            return render_template('signup.html', error="Hasła nie są takie same")
         if db.get_user(username):
-            return render_template('signup.html', error="Użytkownik już istnieje")
+            return render_template('signup.html', error="Użytkownik o podanej nazwie już istnieje!")
         db.add_user(username, password)        
         return redirect(url_for('login'))
     return render_template('signup.html')
