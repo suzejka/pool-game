@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logowanie</title>
+    <title>Rejestracja</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <style>
         .btn {
             @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-400;
@@ -16,32 +18,114 @@
 
 <body class="text-white font-sans h-screen w-screen">
     <div id="app" class="h-full flex flex-col items-center justify-center overflow-hidden">
-
         <div id="view-login" class="w-full h-full flex flex-col items-center justify-center">
             <h1 class="text-3xl font-bold mb-6">Logowanie</h1>
-            <form id="login-form" class="w-4/5 max-w-md" method="POST">
+            <form id="login-form" class="w-4/5 max-w-md" method="POST" onsubmit="return submitForm(this);">
                 <div class="mb-4">
-                    <label for="username" class="block text-lg font-semibold mb-2">Nazwa użytkownika</label>
-                    <input id="username" name="username" type="text"
-                        class="w-full p-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                        required />
-                </div>
-                <div class="mb-6">
-                    <label for="password" class="block text-lg font-semibold mb-2">Hasło</label>
-                    <input id="password" name="password" type="password"
-                        class="w-full p-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                        required />
+                    <label class="block text-lg font-semibold mb-2">Nazwa użytkownika</label>
+                    <div class="relative flex items-center">
+                        <input type='text' id="username" name="username" placeholder='Podaj nazwę użytkownika'
+                            class="pr-4 pl-14 py-3 text_input" />
+
+                        <div class="absolute left-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22px" height="22px" fill="#bbb"
+                                viewBox="0 0 512 512">
+                                <path
+                                    d="M437.02 74.981C388.667 26.629 324.38 0 256 0S123.333 26.629 74.98 74.981C26.629 123.333 0 187.62 0 256s26.629 132.667 74.98 181.019C123.333 485.371 187.62 512 256 512s132.667-26.629 181.02-74.981C485.371 388.667 512 324.38 512 256s-26.629-132.667-74.98-181.019zM256 482c-66.869 0-127.037-29.202-168.452-75.511C113.223 338.422 178.948 290 256 290c-49.706 0-90-40.294-90-90s40.294-90 90-90 90 40.294 90 90-40.294 90-90 90c77.052 0 142.777 48.422 168.452 116.489C383.037 452.798 322.869 482 256 482z"
+                                    data-original="#000000"></path>
+                            </svg>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="mb-6">
-                    <label for="second-password" class="block text-lg font-semibold mb-2">Powtórz hasło</label>
-                    <input id="second-password" name="second-password" type="password"
-                        class="w-full p-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                        required />
+                <div class="mb-4">
+                    <label class="block text-lg font-semibold mb-2">Hasło</label>
+                    <div class="relative flex items-center">
+                        <input type='password' id="password" name="password" placeholder='Podaj hasło'
+                            class="pr-4 pl-14 py-3 text_input" />
+
+                        <div class="absolute left-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-gray-400" viewBox="0 0 34 34">
+                                <path
+                                    d="M17 1c-5 0-9 4-9 9v4c-1.7 0-3 1.3-3 3v13c0 1.7 1.3 3 3 3h18c1.7 0 3-1.3 3-3V17c0-1.7-1.3-3-3-3v-4c0-5-4-9-9-9zm10 16v13c0 .6-.4 1-1 1H8c-.6 0-1-.4-1-1V17c0-.6.4-1 1-1h18c.6 0 1 .4 1 1zm-17-3v-4c0-3.9 3.1-7 7-7s7 3.1 7 7v4z"
+                                    data-original="#000000" />
+                                <path
+                                    d="M17 19c-1.7 0-3 1.3-3 3 0 1.3.8 2.4 2 2.8V27c0 .6.4 1 1 1s1-.4 1-1v-2.2c1.2-.4 2-1.5 2-2.8 0-1.7-1.3-3-3-3zm0 4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"
+                                    data-original="#000000" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="btn w-full">Zarejestruj się</button>
+
+                <div class="mb-4">
+                    <label class="block text-lg font-semibold mb-2">Powtórz hasło</label>
+                    <div class="relative flex items-center">
+                        <input type='password' id="second_password" name="second_password" placeholder='Powtórz hasło'
+                            class="pr-4 pl-14 py-3 text_input" />
+
+                        <div class="absolute left-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 fill-gray-400" viewBox="0 0 34 34">
+                                <path
+                                    d="M17 1c-5 0-9 4-9 9v4c-1.7 0-3 1.3-3 3v13c0 1.7 1.3 3 3 3h18c1.7 0 3-1.3 3-3V17c0-1.7-1.3-3-3-3v-4c0-5-4-9-9-9zm10 16v13c0 .6-.4 1-1 1H8c-.6 0-1-.4-1-1V17c0-.6.4-1 1-1h18c.6 0 1 .4 1 1zm-17-3v-4c0-3.9 3.1-7 7-7s7 3.1 7 7v4z"
+                                    data-original="#000000" />
+                                <path
+                                    d="M17 19c-1.7 0-3 1.3-3 3 0 1.3.8 2.4 2 2.8V27c0 .6.4 1 1 1s1-.4 1-1v-2.2c1.2-.4 2-1.5 2-2.8 0-1.7-1.3-3-3-3zm0 4c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1z"
+                                    data-original="#000000" />
+                            </svg>
+                        </div>
+                        <p id="password_error" class="hidden absolute -bottom-5 px-2 text-xs text-red-500">Hasła różnią
+                            się od siebie!</p>
+                    </div>
+                </div>
+                <button id="submit_button" type="submit" class="submit_button btn w-full py-2" disabled>Zarejestruj się</button>
             </form>
-    </div>
+
+            <div class="mt-6">
+                <p class="text-md">Masz konto? <a href="/" id="btn-login" class="login_button">Zaloguj się</a>
+                </p>
+            </div>
+
+            <script>
+                document.getElementById('username').addEventListener('input', validateForm);
+                document.getElementById('password').addEventListener('input', validateForm);
+                document.getElementById('second_password').addEventListener('input', validateForm);
+
+                function validateForm() {
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    const secondPassword = document.getElementById('second_password').value;
+                    const errorDiv = document.getElementById('password_error');
+                    const submitButton = document.getElementById('submit_button');
+
+                    if (password !== secondPassword) {
+                        errorDiv.classList.remove('hidden');
+                        submitButton.disabled = true;
+                    } else {
+                        errorDiv.classList.add('hidden');
+                    }
+
+                    if (username && password === secondPassword) {
+                        submitButton.disabled = false;
+                    } else {
+                        submitButton.disabled = true;
+                    }
+                }
+
+                    function submitForm(form) {
+                        event.preventDefault();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Sukces',
+                            text: 'Pomyślnie zarejestrowano!'
+                        })
+                            .then(function () {
+                                form.submit();
+                            });
+                                    
+                    }
+
+            </script>
 </body>
 
 </html>
