@@ -53,6 +53,7 @@ def get_user(username):
     user = cur.fetchone()
     cur.close()
     conn.close()
+    user = User(user[0], user[1], user[2])
     return user
 
 def add_user(username, password):
