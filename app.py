@@ -10,7 +10,7 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if not db.get_user(username) or db.get_user(username)[1] != password:
+        if not db.get_user(username) or db.get_user(username).password != password:
             return render_template('index.html', error="Nieprawidłowy login lub hasło")
         session['username'] = username
         return render_template('home.html', username=username)
