@@ -6,6 +6,8 @@
   <title>Dodaj grę</title>
   <link rel="stylesheet" href="static/styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <style>
         .btn {
             @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-400;
@@ -16,37 +18,35 @@
 
     <div id="view-add-game" class="h-full flex flex-col items-center justify-center overflow-hidden">
         <h1 class="text-2xl font-bold mb-4">Dodaj rozgrywkę</h1>
-         <form method="POST">
-            <div class="mb-4">
-                    <div class="inline-flex items-center gap-2">
-                        <label for="eight_pool_game_type" class="text-lg font-semibold mb-2 cursor-pointer">8-pool</label>
-                        <div class="relative inline-block w-11 h-5">
-                            <input id="eight_pool_game_type" type="checkbox"
-                                class="peer appearance-none w-11 h-5 bg-slate-100 rounded-full checked:bg-slate-800 cursor-pointer transition-colors duration-300" />
-                            <label for="eight_pool_game_type"
-                                class="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow-sm transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-slate-800 cursor-pointer">
-                            </label>
-                        </div>
-                        <label for="eight_pool_game_type" class="text-lg font-semibold mb-2 cursor-pointer">9-pool</label>
-                    </div>
-                
-            </div>
+         <form method="POST" onsubmit="return submitForm(this);">
             <div class="mb-4">
                 <label for="opponent" class="block text-lg font-semibold mb-2">Przeciwnik</label>
-                <select id="opponent" name="opponent" class="w-full p-2 bg-gray-800 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-white" required>
+                <select id="opponent" name="opponent" class="w-full p-2 opponent_dropbox text-white rounded-md focus:outline-none focus:ring-2 focus:ring-white" required>
                     <option value="" disabled selected>Wybierz przeciwnika</option>
                     {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.username }}</option>
+                    <option value="{{ user.username }}">{{ user.username }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="mb-4">
                 <label class="block text-lg font-semibold mb-2">Wybierz zwycięzcę</label>
                 <div class="winner_picker">
-                    <input type="button" id="player1-btn" value="Ty" class="winner_button" onclick="selectWinner('player1')">
-                    <input type="button" id="player2-btn" value="Przeciwnik" class="winner_button" onclick="selectWinner('player2')">
+                    <input type="button" id="player1" value="Ty" class="winner_button game-type-button-not-clicked" 
+                        onclick="selectWinner('player1')">
+                    <input type="button" id="player2" value="Przeciwnik" class="winner_button game-type-button-not-clicked" 
+                        onclick="selectWinner('player2')">
                 </div>
                 <input type="hidden" id="winner" name="winner" required>
+            </div>
+            <div class="mb-4">
+                <label class="block text-lg font-semibold mb-2">Wybierz typ gry</label>
+                <div class="game_type_picker">
+                    <input type="button" id="eight_pool" value="8-pool" class="game_type_button game-type-button-not-clicked" 
+                        onclick="selectGameType('eight_pool')">
+                    <input type="button" id="nine_pool" value="9-pool" class="game_type_button game-type-button-not-clicked"
+                        onclick="selectGameType('nine_pool')">
+                </div>
+                <input type="hidden" id="game_type" name="game_type" required>
             </div>
             <button type="submit" class="btn w-full">Dodaj</button>
          </form>
@@ -55,26 +55,57 @@
 
     <script>
         function selectWinner(player) {
-            const player1Btn = document.getElementById('player1-btn');
-            const player2Btn = document.getElementById('player2-btn');
+            const player1Btn = document.getElementById('player1');
+            const player2Btn = document.getElementById('player2');
             const winnerInput = document.getElementById('winner');
 
             if (player === 'player1') {
-                player1Btn.classList.add('bg-green-500');
-                player1Btn.classList.remove('bg-gray-800');
-                player2Btn.classList.add('bg-gray-800');
-                player2Btn.classList.remove('bg-green-500');
-                winnerInput.value = document.getElementById('player1').value;
+                player1Btn.classList.add('game-type-button-clicked');
+                player1Btn.classList.remove('game-type-button-not-clicked');
+                player2Btn.classList.add('game-type-button-not-clicked');
+                player2Btn.classList.remove('game-type-button-clicked');
+                winnerInput.value = 'Ty';
             } else {
-                player2Btn.classList.add('bg-green-500');
-                player2Btn.classList.remove('bg-gray-800');
-                player1Btn.classList.add('bg-gray-800');
-                player1Btn.classList.remove('bg-green-500');
-                winnerInput.value = document.getElementById('player2').value;
+                player2Btn.classList.add('game-type-button-clicked');
+                player2Btn.classList.remove('game-type-button-not-clicked');
+                player1Btn.classList.add('game-type-button-not-clicked');
+                player1Btn.classList.remove('game-type-button-clicked');
+                winnerInput.value = 'Przeciwnik';
             }
         }
+
+        function selectGameType(game_type){
+            const eightPoolBtn = document.getElementById('eight_pool');
+            const ninePoolBtn = document.getElementById('nine_pool');
+            const gameTypeInput = document.getElementById('game_type');
+
+            if (game_type === 'eight_pool'){
+                eightPoolBtn.classList.add('game-type-button-clicked');
+                eightPoolBtn.classList.remove('game-type-button-not-clicked');
+                ninePoolBtn.classList.add('game-type-button-not-clicked');
+                ninePoolBtn.classList.remove('game-type-button-clicked');
+                gameTypeInput.value = 'eight_pool';
+            } else {
+                ninePoolBtn.classList.add('game-type-button-clicked');
+                ninePoolBtn.classList.remove('game-type-button-not-clicked');
+                eightPoolBtn.classList.add('game-type-button-not-clicked');
+                eightPoolBtn.classList.remove('game-type-button-clicked');
+                gameTypeInput.value = 'nine_pool';
+            }
+        }
+
+        function submitForm(form) {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukces',
+                    text: 'Dodano grę!'
+                })
+                    .then(function () {
+                        form.submit();
+                    });
+
+            }
     </script>
-
-
 </body>
 </html>

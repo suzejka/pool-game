@@ -29,20 +29,25 @@ def home():
 def add_game():
     if 'username' not in session:
         return redirect(url_for('login'))
+
     if request.method == 'POST':
-        username = session['username']
-        if request.method == 'POST':
-            eight_pool_game_type = request.form['eight_pool_game_type']
-            if eight_pool_game_type:
-                game_type = 'eight-pool'
-            else:
-                game_type = 'nine-pool'
-            player1_id = db.get_user_id(username)
-            player2_id = request.form['opponent']
-            winner_id = request.form['winner']
-            return redirect(url_for('home'))
-        
-    return render_template('add-game.html', users=db.get_users())
+        print(request.form)
+        opponent = request.form['opponent']
+        winner = request.form['winner']
+        game_type = request.form['game_type']
+
+        winner = session['username'] if winner == "Ty" else opponent
+        print(f"Winner: {winner}")
+
+        db.add_game(
+            db.get_user_id(session['username']), 
+            db.get_user_id(opponent),
+            db.get_user_id(winner),
+            game_type
+            )
+        return redirect(url_for('home'))
+
+    return render_template('add-game.html', users=db.get_user_without_current_user_by_username(session['username']))
 
 # Dodawanie piwa
 @app.route('/add-beer', methods=['GET', 'POST'])
@@ -60,8 +65,8 @@ def stats(): # Debug print
     if 'username' not in session:
         return redirect(url_for('login'))
     username = session['username']
-    won_games = db.get_won_games(db.get_user(username)[0])
-    all_games = db.get_all_games(db.get_user(username)[0])
+    won_games = db.count_won_games(db.get_user(username)[0])
+    all_games = db.count_all_games(db.get_user(username)[0])
     beers = db.count_beers(db.get_user(username)[0])
     return render_template('stats.html', won_games=won_games, all_games=all_games, beers=beers)
 

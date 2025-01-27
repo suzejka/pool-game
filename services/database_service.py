@@ -27,6 +27,25 @@ def get_users():
     users = [User(user_id, username, password) for user_id, username, password in users]
     return users
 
+def get_user_without_current_user_by_user_id(user_id):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM users WHERE id != %s", (user_id,))
+    users = cur.fetchall()
+    cur.close()
+    conn.close()
+    return users
+
+def get_user_without_current_user_by_username(username):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM users WHERE username != %s", (username,))
+    users = cur.fetchall()
+    cur.close()
+    conn.close()
+    users = [User(user_id, username, password) for user_id, username, password in users]
+    return users
+
 def get_user(username):
     conn = connect()
     cur = conn.cursor()
@@ -44,6 +63,15 @@ def add_user(username, password):
     cur.close()
     conn.close()
 
+def get_user_id(username):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT id FROM users WHERE username = %s", (username,))
+    user_id = cur.fetchone()[0]
+    cur.close()
+    conn.close()
+    return user_id
+
 def get_user_by_id(user_id):
     conn = connect()
     cur = conn.cursor()
@@ -51,6 +79,7 @@ def get_user_by_id(user_id):
     user = cur.fetchone()
     cur.close()
     conn.close()
+    user = User(user[0], user[1], user[2])
     return user
 
 def get_user_by_username(username):
@@ -80,10 +109,10 @@ def get_games():
     conn.close()
     return games
 
-def add_game(player1_id, player2_id, winner_id):
+def add_game(player1_id, player2_id, winner_id, game_type):
     conn = connect()
     cur = conn.cursor()
-    cur.execute("INSERT INTO games (player1_id, player2_id, winner_id) VALUES (%s, %s, %s)", (player1_id, player2_id, winner_id))
+    cur.execute("INSERT INTO games (player1_id, player2_id, winner_id, game_type) VALUES (%s, %s, %s, %s)", (player1_id, player2_id, winner_id, game_type))
     conn.commit()
     cur.close()
     conn.close()
@@ -123,6 +152,15 @@ def get_won_games(user_id):
     conn.close()
     return won_games
 
+def count_won_games(user_id):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM games WHERE winner_id = %s", (user_id,))
+    count = cur.fetchone()[0]
+    cur.close()
+    conn.close()
+    return count
+
 def get_all_games(user_id):
     conn = connect()
     cur = conn.cursor()
@@ -132,4 +170,12 @@ def get_all_games(user_id):
     conn.close()
     return all_games
 
+def count_all_games(user_id):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT COUNT(*) FROM games WHERE player1_id = %s OR player2_id = %s", (user_id, user_id))
+    count = cur.fetchone()[0]
+    cur.close()
+    conn.close()
+    return count
 

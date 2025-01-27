@@ -97,7 +97,6 @@ nav ul li a:hover {
 
 .winner_button {
     display: inline-block;
-    background-color: var(--dark-text-color);
     color: var(--linen);
     font-size: 14px;
     cursor: pointer;
@@ -108,8 +107,47 @@ nav ul li a:hover {
     margin: 5px;
 }
 
+.winner_button_clicked {
+    background-color: var(--light-color);
+}
+
+.winner_button_not_clicked {
+    background-color: var(--dark-text-color);
+}
+
 .winner_picker {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.game_type_button {
+    display: inline-block;
+    color: var(--linen);
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 50%; /* Adjusted width to fit two buttons side by side */
+    margin: 5px;
+}
+
+.game-type-button-clicked {
+    background-color: var(--light-color);
+}
+
+.game-type-button-not-clicked {
+    background-color: var(--dark-text-color);
+}
+
+.game_type_picker {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opponent_dropbox {
+    background: var(--dark-text-color);
+    color: var(--linen);
 }
