@@ -190,3 +190,7 @@ nav ul li a:hover {
   width: 100%;
   margin: 10px 0;
 }
+
+h1 {
+  text-align: center;
+}
