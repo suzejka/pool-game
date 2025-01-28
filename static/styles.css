@@ -167,3 +167,19 @@ nav ul li a:hover {
     background: var(--dark-text-color);
     color: var(--linen);
 }
+
+.error {
+  color: var(--linen);
+  background: var(--light-color);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.error:hover {
+  background: var(--dark-text-color);
+}

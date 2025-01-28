@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Błąd</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="text-white font-sans h-screen w-screen">
+    <div class="h-full flex flex-col items-center justify-center overflow-hidden">
+        <img src="{{ url_for('static', filename='3d/error.png') }}" alt="Error Image" class="mb-4 w-1/4">
+        <h1 class="text-3xl font-bold mb-4">Oh, ktoś coś zepsuł!</h1>
+        <p class="text-lg mb-6">Napisz do mnie z opisem co poklikałeś, postaram się naprawić <3</p>
+        <a href="/" class="btn w-1/2 py-2 error">Powrót do strony głównej</a>
+    </div>
+</body>
+
+</html>
