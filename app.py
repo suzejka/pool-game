@@ -56,7 +56,7 @@ def add_beer():
         return redirect(url_for('login'))
     username = session['username']
     if request.method == 'POST':
-        db.add_beer(db.get_user(username)[0])
+        db.add_beer(db.get_user(username).id)
         return redirect(url_for('home'))
 
 # Statystyki
@@ -65,9 +65,9 @@ def stats(): # Debug print
     if 'username' not in session:
         return redirect(url_for('login'))
     username = session['username']
-    won_games = db.count_won_games(db.get_user(username)[0])
-    all_games = db.count_all_games(db.get_user(username)[0])
-    beers = db.count_beers(db.get_user(username)[0])
+    won_games = db.count_won_games(db.get_user(username).id)
+    all_games = db.count_all_games(db.get_user(username).id)
+    beers = db.count_beers(db.get_user(username).id)
     return render_template('stats.html', won_games=won_games, all_games=all_games, beers=beers)
 
 @app.route('/friends')
@@ -83,8 +83,6 @@ def signup():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if db.get_user(username):
-            return render_template('signup.html', error="Użytkownik o podanej nazwie już istnieje!")
         db.add_user(username, password)        
         return redirect(url_for('login'))
     return render_template('signup.html')

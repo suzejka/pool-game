@@ -5,40 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strona główna</title>
-    <link rel="stylesheet" href="static/styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
     <style>
-        .btn {
+        /* .btn {
             @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-400;
-        }
+        } */
     </style>
 </head>
 
 
 <body class="text-white font-sans h-screen w-screen">
-
     <div id="app" class="h-full flex flex-col items-center justify-center overflow-hidden">
 
-        <div id="view-home" class="w-full h-full flex flex-col items-center justify-center">
-            <h1 class="text-2xl font-bold mb-6">Witaj {{username}}!</h1>
-            <a href="/add-game" class="btn" data-target="view-game">
+        <div id="view-home" class="w-4/5 h-full flex flex-col items-center justify-center">
+            <h1 class="text-3xl font-bold mb-6">Witaj {{username}}!</h1>
+            <a href="/add-game" class="btn w-full py-2" data-target="view-game">
                 Rozpocznij grę
             </a>
-            <a onclick="addBeerAlert()" class="btn mt-4" data-target="add-beer">
+            <button onclick="addBeerAlert()" class="btn w-full py-2" data-target="add-beer">
                 Dodaj piwo
-            </a>
-            <a href="/stats" class="btn mt-4" data-target="view-stats">
+            </button>
+            <a href="/stats" class="btn w-full py-2" data-target="view-stats">
                 Statystyki
             </a>
-            <!-- <a href="/friends" class="btn mt-4" data-target="view-friends">
-                Lista znajomych
-            </a> -->
         </div>
 
         <form id="sign-out-form" method="GET" action="/sign-out">
-            <button type="submit" class="btn mt-6">Wyloguj się</button>
+            <button type="submit" class="btn w-full py-4 mt-6">Wyloguj się</button>
     </div>
 
         <script>
