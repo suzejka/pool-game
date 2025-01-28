@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona główna</title>
+    <title>Wielka Ursynowska Bilariada</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
@@ -21,7 +21,7 @@
     <div id="app" class="h-full flex flex-col items-center justify-center overflow-hidden">
 
         <div id="view-home" class="w-4/5 h-full flex flex-col items-center justify-center">
-            <h1 class="text-3xl font-bold mb-6">Witaj {{username}}!</h1>
+            <h1 class="text-3xl font-bold mb-6 pt-6">Witaj {{username}}!</h1>
             <a href="/add-game" class="btn w-full py-2" data-target="view-game">
                 Rozpocznij grę
             </a>

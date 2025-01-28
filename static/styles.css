@@ -183,3 +183,10 @@ nav ul li a:hover {
 .error:hover {
   background: var(--dark-text-color);
 }
+
+.line {
+  background: var(--dark-text-color);
+  height: 2px;
+  width: 100%;
+  margin: 10px 0;
+}
