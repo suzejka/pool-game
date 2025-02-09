@@ -194,3 +194,68 @@ nav ul li a:hover {
 h1 {
   text-align: center;
 }
+
+.side-menu {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: var(--light-color);
+  color: var(--linen);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu .menu-items {
+  flex-grow: 1;
+}
+
+.side-menu a {
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  transition: 0.3s;
+  border-radius: 0%;
+  margin: 0%;
+}
+
+.side-menu a:hover {
+  color: #f1f1f1;
+}
+
+.side-menu .close-btn {
+  position: absolute;
+  top: 0px;
+  font-size: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: right;
+  padding-right: 8%;
+  padding-top: 0%;
+}
+
+.hamburger {
+  font-size: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 2%;
+  right: 5%;
+}
+
+.sign-out {
+  padding-bottom: 10%;
+  text-decoration: none;
+  font-size: 16px;
+  display: block;
+  transition: 0.3s;
+}
+
+.sign-out:hover {
+  color: #f1f1f1;
+}

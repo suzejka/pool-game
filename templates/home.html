@@ -9,16 +9,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-    <style>
-        /* .btn {
-            @apply px-4 py-2 bg-green-500 rounded-md text-white font-bold hover:bg-green-400;
-        } */
-    </style>
 </head>
 
 
 <body class="text-white font-sans h-screen w-screen">
     <div id="app" class="h-full flex flex-col items-center justify-center overflow-hidden">
+
+        <div class="hamburger" onclick="openMenu()">&#9776;</div>
+        <div id="side-menu" class="side-menu">
+            <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+            <div class="menu-items">
+                <a href="/account-settings">Twoje konto</a>
+                <a href="/ideas">Zgłoś problem/pomysł</a>
+            </div>
+            <a href="/sign-out" class="sign-out">Wyloguj się</a>
+        </div>
 
         <div id="view-home" class="w-4/5 h-full flex flex-col items-center justify-center">
             <h1 class="text-3xl font-bold mb-6 pt-6">Witaj {{username}}!</h1>
@@ -33,11 +38,19 @@
             </a>
         </div>
 
-        <form id="sign-out-form" class="w-4/5" method="GET" action="/sign-out">
-            <button type="submit" class="btn w-full py-4 mt-6">Wyloguj się</button>
+        <!-- <form id="sign-out-form" class="w-4/5" method="GET" action="/sign-out">
+            <button type="submit" class="btn w-full py-4 mt-6">Wyloguj się</button> -->
     </div>
 
         <script>
+
+            function openMenu() {
+                document.getElementById("side-menu").style.width = "250px";
+            }
+
+            function closeMenu() {
+                document.getElementById("side-menu").style.width = "0";
+            }
             function addBeerAlert() {
                 fetch('/add-beer', {
                     method: 'POST',
@@ -50,7 +63,10 @@
                             theme: 'dark',
                             icon: 'success',
                             title: 'Sukces',
-                            text: 'Dodano jedno piwo!'
+                            text: 'Dodano jedno piwo!',
+                            timer: 1500,
+                            timerProgressBar: true,
+                            showConfirmButton: false
                         });
                     })
             }

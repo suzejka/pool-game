@@ -99,7 +99,10 @@
                 Swal.fire({
                     icon: 'success',
                     title: 'Sukces',
-                    text: 'Dodano grę!'
+                    text: 'Dodano grę!',
+                    timer: 1500,
+                    timerProgressBar: true,
+                    showConfirmButton: false
                 })
                     .then(function () {
                         form.submit();

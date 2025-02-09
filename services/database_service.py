@@ -1,6 +1,6 @@
 import psycopg2
 import os
-from models.user import User
+from models.models import User, Idea
 
 # module fot database operations
 DATABASE_HOST = os.getenv("DATABASE_HOST")
@@ -72,6 +72,22 @@ def get_user_id(username):
     cur.close()
     conn.close()
     return user_id
+
+def update_username(user_id, new_username):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("UPDATE users SET username = %s WHERE id = %s", (new_username, user_id))
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def update_password(user_id, new_password):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("UPDATE users SET password = %s WHERE id = %s", (new_password, user_id))
+    conn.commit()
+    cur.close()
+    conn.close()
 
 def get_user_by_id(user_id):
     conn = connect()
@@ -179,4 +195,12 @@ def count_all_games(user_id):
     cur.close()
     conn.close()
     return count
+
+def create_idea(idea: Idea):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO ideas (type, description, user_id) VALUES (%s, %s, %s)", (idea.type, idea.description, idea.user_id))
+    conn.commit()
+    cur.close()
+    conn.close()
 

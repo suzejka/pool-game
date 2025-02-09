@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zgłoś pomysł lub problem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+
+<body class="text-white font-sans h-screen w-screen">
+    <div id="app" class="h-full flex flex-col items-center justify-center overflow-hidden">
+        <h1 class="text-3xl font-bold mb-6 w-4/5 max-w-md">Zgłoś pomysł lub problem</h1>
+        <form method="POST" onsubmit="return submitForm(this);" enctype="multipart/form-data" class="w-4/5 max-w-md">
+            <div class="mb-4">
+                <label for="message-type" class="block text-lg font-semibold mb-2">Typ wiadomości</label>
+                <select id="message-type" name="message-type"
+                    class="w-full p-2 bg-gray-800 text-white text_input"
+                    required>
+                    <option value="idea">Pomysł</option>
+                    <option value="problem">Problem</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label for="description" class="block text-lg font-semibold mb-2">Opis</label>
+                <textarea id="description" name="description" rows="4"
+                    class="w-full p-2 bg-gray-800 text-white text_input"
+                    required></textarea>
+            </div>
+            <button type="submit" class="btn w-full mt-4 py-2">Wyślij</button>
+        </form>
+        <a href="/home" class="btn w-4/5 max-w-md py-2">Powrót</a>
+    </div>
+
+    <script>
+         function submitForm(form) {
+                event.preventDefault();
+                form.submit();
+            }
+    </script>
+</body>
+
+</html>

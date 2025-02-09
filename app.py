@@ -3,6 +3,7 @@ import psycopg2
 from services import database_service as db
 from services import email_service as es
 import traceback
+from models.models import Idea
 
 app = Flask(__name__)
 app.secret_key = '3a26ac0d-7470-43fd-98a3-1bb7de9bad33'
@@ -19,7 +20,7 @@ def login():
             return render_template('home.html', username=username)
         return render_template('index.html')
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc())
+        es.send_error_email(str(e), traceback.format_exc())
         return render_template('error_page.html')
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -30,7 +31,7 @@ def home():
         username = session['username']
         return render_template('home.html', username=username)
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 @app.route('/add-game', methods=['GET', 'POST'])
@@ -58,7 +59,7 @@ def add_game():
 
         return render_template('add-game.html', users=db.get_user_without_current_user_by_username(session['username']))
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 @app.route('/add-beer', methods=['GET', 'POST'])
@@ -71,13 +72,12 @@ def add_beer():
             db.add_beer(db.get_user(username).id)
             return redirect(url_for('home'))
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 @app.route('/stats')
 def stats():
     try:
-        raise Exception("Test")
         if 'username' not in session:
             return redirect(url_for('login'))
         username = session['username']
@@ -86,7 +86,7 @@ def stats():
         beers = db.count_beers(db.get_user(username).id)
         return render_template('stats.html', won_games=won_games, all_games=all_games, beers=beers)
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 @app.route('/friends')
@@ -97,7 +97,7 @@ def friends():
         username = session['username']
         return render_template('friends.html')
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -110,7 +110,59 @@ def signup():
             return redirect(url_for('login'))
         return render_template('signup.html')
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
+        return render_template('error_page.html')
+    
+@app.route('/account-settings', methods=['GET', 'POST'])
+def account_settings():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        # Handle account settings changes here
+        pass
+    return render_template('account.html')
+
+@app.route('/change-username', methods=['POST'])
+def change_username():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    new_username = request.form['new-username']
+    user = db.get_user(session['username'])
+    db.update_username(user.id, new_username)
+    session['username'] = new_username
+    return redirect(url_for('home'))
+
+@app.route('/change-password', methods=['POST'])
+def change_password():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    new_password = request.form['new-password']
+    user = db.get_user(session['username'])
+    db.update_password(user.id, new_password)
+    return redirect(url_for('home'))
+
+@app.route('/ideas', methods=['GET', 'POST'])
+def ideas():
+    try:
+        if 'username' not in session:
+            return redirect(url_for('login'))
+        if request.method == 'POST':
+            message_type = request.form['message-type']
+            description = request.form['description']
+
+            idea = Idea(
+                idea_id=None,
+                type=message_type,
+                description=description,
+                user_id=db.get_user_id(session['username'])
+            )
+
+            db.create_idea(idea)
+            es.send_idea_email(idea)
+            return redirect(url_for('home'))
+        return render_template('ideas.html')
+    except Exception as e:
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 
@@ -120,7 +172,7 @@ def signout():
         session.pop('username', None)
         return redirect(url_for('login'))
     except Exception as e:
-        es.send_alert_email(str(e), traceback.format_exc())
+        es.send_error_email(str(e), traceback.format_exc())
         return render_template('error_page.html')
 
 if __name__ == '__main__':
