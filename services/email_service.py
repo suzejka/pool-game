@@ -30,8 +30,7 @@ def send_idea_email(idea: Idea):
     s.login(ALERT_EMAIL, ALERT_EMAIL_PASSWORD)
     message = f"""Subject: New Idea
 
-        {user.username} added a new {idea.type} idea: 
-        
+        {user.username} added a new {idea.type}: 
         {normalized}
 
     """
