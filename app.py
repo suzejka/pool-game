@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import psycopg2
 from services import database_service as db
+from services import email_service as es
+import traceback
 
 app = Flask(__name__)
 app.secret_key = '3a26ac0d-7470-43fd-98a3-1bb7de9bad33'
@@ -17,6 +19,7 @@ def login():
             return render_template('home.html', username=username)
         return render_template('index.html')
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc())
         return render_template('error_page.html')
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -27,10 +30,9 @@ def home():
         username = session['username']
         return render_template('home.html', username=username)
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
-    
 
-# Dodawanie gry
 @app.route('/add-game', methods=['GET', 'POST'])
 def add_game():
     try:
@@ -56,6 +58,7 @@ def add_game():
 
         return render_template('add-game.html', users=db.get_user_without_current_user_by_username(session['username']))
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 @app.route('/add-beer', methods=['GET', 'POST'])
@@ -68,12 +71,13 @@ def add_beer():
             db.add_beer(db.get_user(username).id)
             return redirect(url_for('home'))
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
-# Statystyki
 @app.route('/stats')
 def stats():
     try:
+        raise Exception("Test")
         if 'username' not in session:
             return redirect(url_for('login'))
         username = session['username']
@@ -82,6 +86,7 @@ def stats():
         beers = db.count_beers(db.get_user(username).id)
         return render_template('stats.html', won_games=won_games, all_games=all_games, beers=beers)
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 @app.route('/friends')
@@ -92,9 +97,9 @@ def friends():
         username = session['username']
         return render_template('friends.html')
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
-# sign up
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     try:
@@ -105,6 +110,7 @@ def signup():
             return redirect(url_for('login'))
         return render_template('signup.html')
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')
 
 
@@ -114,6 +120,7 @@ def signout():
         session.pop('username', None)
         return redirect(url_for('login'))
     except Exception as e:
+        es.send_alert_email(str(e), traceback.format_exc())
         return render_template('error_page.html')
 
 if __name__ == '__main__':
