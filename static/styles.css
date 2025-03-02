@@ -259,3 +259,11 @@ h1 {
 .sign-out:hover {
   color: #f1f1f1;
 }
+
+.go_back_btn{
+  font-size: 100%;
+}
+
+.main_submit_btn{
+  font-size: 110%;
+}

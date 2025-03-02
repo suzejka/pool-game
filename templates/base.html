@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Wielka Ursynowska Bilariada{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+</head>
+
+<body class="text-white font-sans h-screen w-screen">
+    <div class="hamburger" onclick="openMenu()">&#9776;</div>
+    <div id="side-menu" class="side-menu">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <div class="menu-items">
+            <a href="/settings">Ustawienia konta</a>
+            <a href="/ideas">Zgłoś problem/pomysł</a>
+        </div>
+        <a href="/sign-out" class="sign-out">Wyloguj się</a>
+    </div>
+
+    <div id="app" class="h-full flex flex-col items-center justify-center overflow-hidden">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script>
+        function openMenu() {
+            document.getElementById("side-menu").style.width = "250px";
+        }
+
+        function closeMenu() {
+            document.getElementById("side-menu").style.width = "0";
+        }
+    </script>
+</body>
+
+</html>

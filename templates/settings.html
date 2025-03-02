@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ustawienia konta</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="text-white font-sans h-screen w-screen">
+    <div id="app" class="h-full flex flex-col items-center justify-center overflow-hidden">
+        <h1 class="text-3xl font-bold mb-6 main_submit_btn">Ustawienia konta</h1>
+        <a href="/account-settings" class="btn w-full mt-4 py-2 main_submit_btn">Zmień dane użytkownika</button>
+        <a href="/home" class="btn w-4/5 max-w-md mt-6 go_back_btn">Powrót</a>
+    </div>
+</body>
+
+</html>

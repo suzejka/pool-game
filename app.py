@@ -14,6 +14,8 @@ def login():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
+            if db.does_user_exist(username) == False:
+                return render_template('index.html', error=f"Użytkownik nie istnieje")
             if not db.get_user(username) or db.get_user(username).password != password:
                 return render_template('index.html', error="Nieprawidłowy login lub hasło")
             session['username'] = username
@@ -121,6 +123,17 @@ def account_settings():
         # Handle account settings changes here
         pass
     return render_template('account.html')
+
+@app.route('/settings', methods=['GET', 'POST'])
+def settings():
+    try:
+        if 'username' not in session:
+            return redirect(url_for('login'))
+        username = session['username']
+        return render_template('settings.html', username=username)
+    except Exception as e:
+        es.send_error_email(str(e), traceback.format_exc(), session['username'])
+        return render_template('error_page.html')
 
 @app.route('/change-username', methods=['POST'])
 def change_username():

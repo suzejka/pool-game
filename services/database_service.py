@@ -56,6 +56,16 @@ def get_user(username):
     user = User(user[0], user[1], user[2])
     return user
 
+def does_user_exist(username):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM users WHERE username = %s", (username,))
+    user = cur.fetchone()
+    cur.close()
+    conn.close()
+    return user is not None
+
+
 def add_user(username, password):
     conn = connect()
     cur = conn.cursor()
