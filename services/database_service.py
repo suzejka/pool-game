@@ -206,6 +206,42 @@ def count_all_games(user_id):
     conn.close()
     return count
 
+def count_all_eight_pool_games_by_user_id(user_id):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM games WHERE player1_id = %s OR player2_id = %s AND game_type = 'eight_pool'", (user_id, user_id))
+    all_games = cur.fetchall()
+    cur.close()
+    conn.close()
+    return len(all_games)
+
+def count_all_nine_pool_games_by_user_id(user_id):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM games WHERE player1_id = %s OR player2_id = %s AND game_type = 'nine_pool'", (user_id, user_id))
+    all_games = cur.fetchall()
+    cur.close()
+    conn.close()
+    return len(all_games)
+
+def count_won_eight_pool_games_by_user_id(user_id):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM games WHERE winner_id = %s AND game_type = 'eight_pool'", (user_id,))
+    all_games = cur.fetchall()
+    cur.close()
+    conn.close()
+    return len(all_games)
+
+def count_won_nine_pool_games_by_user_id(user_id):
+    conn = connect()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM games WHERE winner_id = %s AND game_type = 'nine_pool'", (user_id,))
+    all_games = cur.fetchall()
+    cur.close()
+    conn.close()
+    return len(all_games)
+
 def create_idea(idea: Idea):
     conn = connect()
     cur = conn.cursor()

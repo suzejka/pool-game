@@ -16,22 +16,38 @@
 
 <body class="text-white font-sans h-screen w-screen">
     <div id="view-stats" class="h-full flex flex-col items-center justify-center overflow-hidden">
-        <h1 class="text-2xl font-bold mb-4">Statystyki</h1>
-        <ul class="w-4/5 space-y-4">
-            <li class="flex justify-between">
-                <span>Wszystkie gry:</span>
-                <span>{{all_games}}</span>
-            </li>
-            <li class="flex justify-between">
-                <span>Wygrane:</span>
-                <span>{{won_games}}</span>
-            </li>
-            <li class="flex justify-between">
-                <span>Wypite piwa:</span>
-                <span>{{beers}}</span>
-            </li>
-        </ul>
+        <h1 class="text-2xl font-bold mb-4 text-center">Statystyki</h1>
+        <div class="w-4/5 max-w-4xl flex justify-center items-center">
+            <table class="w-3/5 stats-table text-white">
+                <thead>
+                    <tr>
+                        <th class="py-2 px-4 border-b border-gray-600"></th>
+                        <th class="py-2 px-4 border-b border-gray-600">8-pool</th>
+                        <th class="py-2 px-4 border-b border-gray-600">9-pool</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-600">Wygrane</td>
+                        <td class="py-2 px-4 border-b border-gray-600 text-center">{{won_games_8_pool}}</td>
+                        <td class="py-2 px-4 border-b border-gray-600 text-center">{{won_games_9_pool}}</td>
+                    </tr>
+                    <tr>
+                        <td class="py-2 px-4 border-b border-gray-600">Wszystkie gry</td>
+                        <td class="py-2 px-4 border-b border-gray-600 text-center">{{all_games_8_pool}}</td>
+                        <td class="py-2 px-4 border-b border-gray-600 text-center">{{all_games_9_pool}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="w-4/5 max-w-4xl mt-8">
+            <h2 class="text-2xl font-bold mb-4 text-center">Wypite piwa</h2>
+            <div class="flex justify-center">
+                <span class="text-3xl">{{beers}}</span>
+            </div>
+        </div>
         <a href="/home" class="btn w-4/5 max-w-md mt-6 go_back_btn">Powrót</a>
     </div>
 </body>
+
 </html>

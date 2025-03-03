@@ -83,10 +83,18 @@ def stats():
         if 'username' not in session:
             return redirect(url_for('login'))
         username = session['username']
-        won_games = db.count_won_games(db.get_user(username).id)
-        all_games = db.count_all_games(db.get_user(username).id)
-        beers = db.count_beers(db.get_user(username).id)
-        return render_template('stats.html', won_games=won_games, all_games=all_games, beers=beers)
+        user_id = db.get_user(username).id
+        all_eight_pool_games = db.count_all_eight_pool_games_by_user_id(user_id)
+        won_eight_pool_games = db.count_won_eight_pool_games_by_user_id(user_id)
+        all_nine_pool_games = db.count_all_nine_pool_games_by_user_id(user_id)
+        won_nine_pool_games = db.count_won_nine_pool_games_by_user_id(user_id)
+        beers = db.count_beers(user_id)
+        return render_template('stats.html', 
+                               all_games_8_pool=all_eight_pool_games,
+                               won_games_8_pool=won_eight_pool_games,
+                               all_games_9_pool=all_nine_pool_games,
+                               won_games_9_pool=won_nine_pool_games,
+                               beers=beers)
     except Exception as e:
         es.send_error_email(str(e), traceback.format_exc(), session['username'])
         return render_template('error_page.html')

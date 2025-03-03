@@ -267,3 +267,7 @@ h1 {
 .main_submit_btn{
   font-size: 110%;
 }
+
+.stats-table {
+  background-color: #352166;
+}
